@@ -2,12 +2,18 @@
 import { Link, useRouter, usePathname } from '@/core/i18n/routing';
 import {
   BookOpen,
+  Brain,
+  CloudRain,
   House,
+  Keyboard,
   Languages,
   Leaf,
   Sparkles,
+  Star,
   TrendingUp,
-  Trophy
+  Trophy,
+  Volume2,
+  Wind
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useClick } from '@/shared/hooks/useAudio';
@@ -215,6 +221,19 @@ const Sidebar = () => {
         Experiments
       </div>
       <Link
+        href='/experiments'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <Sparkles className='shrink-0' />
+        <span>All Experiments</span>
+      </Link>
+      <Link
         href='/zen'
         className={clsx(
           'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
@@ -224,8 +243,112 @@ const Sidebar = () => {
         )}
         onClick={playClick}
       >
-        <Leaf />
-        <span>Zen Popper</span>
+        <Leaf className='shrink-0' />
+        <span>Zen Mode</span>
+      </Link>
+      <Link
+        href='/experiments/breathing'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments/breathing'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <Wind className='shrink-0' />
+        <span>Breathing</span>
+      </Link>
+      <Link
+        href='/experiments/ambient'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments/ambient'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <Sparkles className='shrink-0' />
+        <span>Ambient</span>
+      </Link>
+      <Link
+        href='/experiments/rain'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments/rain'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <CloudRain className='shrink-0' />
+        <span>Kana Rain</span>
+      </Link>
+      <Link
+        href='/experiments/sound'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments/sound'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <Volume2 className='shrink-0' />
+        <span>Sound Garden</span>
+      </Link>
+      <Link
+        href='/experiments/haiku'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments/haiku'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <BookOpen className='shrink-0' />
+        <span>Daily Haiku</span>
+      </Link>
+      <Link
+        href='/experiments/constellation'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments/constellation'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <Star className='shrink-0' />
+        <span>Constellation</span>
+      </Link>
+      <Link
+        href='/experiments/typing'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments/typing'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <Keyboard className='shrink-0' />
+        <span>Speed Typing</span>
+      </Link>
+      <Link
+        href='/experiments/memory'
+        className={clsx(
+          'max-lg:hidden text-xl duration-250 transition-all py-2 px-4 rounded-xl w-full flex items-center gap-2',
+          pathWithoutLocale === '/experiments/memory'
+            ? 'text-[var(--main-color)] bg-[var(--border-color)] lg:bg-[var(--card-color)]'
+            : 'hover:bg-[var(--card-color)] text-[var(--secondary-color)]'
+        )}
+        onClick={playClick}
+      >
+        <Brain className='shrink-0' />
+        <span>Memory Palace</span>
       </Link>
     </div>
   );
