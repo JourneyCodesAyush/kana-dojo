@@ -566,6 +566,7 @@ export default function Gauntlet<T>({ config }: GauntletProps<T>) {
 
   return (
     <ActiveGame
+      dojoType={dojoType}
       currentIndex={currentIndex}
       totalQuestions={totalQuestions}
       lives={lives}

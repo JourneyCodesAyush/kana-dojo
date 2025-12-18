@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import {
   Heart,
   HeartCrack,
-  Timer,
   X,
   Flame,
   CircleCheck,
@@ -23,6 +22,9 @@ import {
 } from './types';
 
 interface ActiveGameProps<T> {
+  // Dojo type for layout customization
+  dojoType: 'kana' | 'kanji' | 'vocabulary';
+
   // Progress
   currentIndex: number;
   totalQuestions: number;
@@ -75,21 +77,28 @@ interface ActiveGameProps<T> {
   onCancel: () => void;
 }
 
-// Format time as MM:SS
-const formatElapsedTime = (ms: number): string => {
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-};
+// Stat item component matching ReturnFromGame
+const StatItem = ({
+  icon: Icon,
+  value
+}: {
+  icon: React.ElementType;
+  value: number;
+}) => (
+  <p className='flex flex-row items-center gap-1 text-xl'>
+    <Icon size={20} />
+    <span>{value}</span>
+  </p>
+);
 
 export default function ActiveGame<T>({
+  dojoType,
   currentIndex,
   totalQuestions,
   lives,
   maxLives,
   difficulty,
-  elapsedTime,
+  elapsedTime: _elapsedTime,
   currentQuestion,
   renderQuestion,
   isReverseActive,
@@ -118,7 +127,7 @@ export default function ActiveGame<T>({
   const progressPercent = Math.round((currentIndex / totalQuestions) * 100);
   const canRegenerate = DIFFICULTY_CONFIG[difficulty].regenerates;
 
-  // Feedback elements - matching Classic's GameIntel style
+  // Feedback elements - matching GameIntel style
   const feedback = useMemo(() => {
     if (lastAnswerCorrect === true) {
       return (
@@ -136,7 +145,7 @@ export default function ActiveGame<T>({
               ? 'Try again '
               : `It was "${getCorrectAnswer(currentQuestion, isReverseActive)}" `}
           </span>
-          <CircleX className='inline text-[var(--secondary-color)]' />
+          <CircleX className='inline text-[var(--main-color)]' />
         </>
       );
     }
@@ -185,12 +194,12 @@ export default function ActiveGame<T>({
   return (
     <div
       className={clsx(
-        'flex min-h-[100dvh] max-w-[100dvw] flex-col items-center gap-4 px-4 pt-4 sm:gap-10 md:pt-8'
+        'flex min-h-[100dvh] flex-col items-center px-4 pt-4 md:pt-8'
       )}
     >
-      {/* Top Bar - matching Classic's ReturnFromGame layout */}
+      {/* Header section - matching ReturnFromGame layout */}
       <div className='flex w-full flex-col md:w-2/3 lg:w-1/2'>
-        {/* Row 1: Exit, Progress Bar, Lives */}
+        {/* Row 1: Exit button, Progress bar, Lives */}
         <div className='flex w-full flex-row items-center justify-between gap-4 md:gap-6'>
           {/* Exit Button */}
           <button
@@ -200,7 +209,7 @@ export default function ActiveGame<T>({
             <X size={32} />
           </button>
 
-          {/* Progress Bar - using theme colors */}
+          {/* Progress Bar - Gauntlet specific with percentage */}
           <div className='flex flex-1 flex-col gap-1'>
             <div className='h-3 w-full overflow-hidden rounded-full bg-[var(--card-color)]'>
               <div
@@ -216,7 +225,7 @@ export default function ActiveGame<T>({
             </div>
           </div>
 
-          {/* Lives Display - using theme colors */}
+          {/* Lives Display */}
           <div className='flex items-center gap-1'>
             {Array.from({ length: maxLives }).map((_, i) => {
               const hasLife = i < lives;
@@ -239,36 +248,21 @@ export default function ActiveGame<T>({
           </div>
         </div>
 
-        {/* Row 2: Game mode, Timer, Stats - matching Classic layout */}
-        <div className='flex w-full flex-row items-center py-2'>
+        {/* Row 2: Game mode and stats - matching ReturnFromGame exactly */}
+        <div className='flex w-full flex-row items-center'>
           {/* Game mode indicator */}
-          <p className='flex w-1/3 items-center justify-start gap-1 text-lg sm:gap-2 sm:pl-1'>
-            <ModeIcon className='text-[var(--main-color)]' size={20} />
-            <span className='text-[var(--secondary-color)]'>{gameMode}</span>
+          <p className='flex w-1/2 items-center justify-start gap-1 text-lg sm:gap-2 sm:pl-1 md:text-xl'>
+            <ModeIcon className='text-[var(--main-color)]' />
+            <span className='text-[var(--secondary-color)]'>
+              {gameMode.toLowerCase()}
+            </span>
           </p>
 
-          {/* Timer */}
-          <div className='flex w-1/3 items-center justify-center gap-2'>
-            <Timer className='text-[var(--main-color)]' size={18} />
-            <span className='font-mono text-[var(--secondary-color)]'>
-              {formatElapsedTime(elapsedTime)}
-            </span>
-          </div>
-
-          {/* Stats display - matching Classic's StatItem style */}
-          <div className='flex w-1/3 flex-row items-center justify-end gap-1.5 py-2 text-[var(--secondary-color)] sm:gap-2 md:gap-3'>
-            <p className='flex flex-row items-center gap-1 text-xl'>
-              <SquareCheck />
-              <span>{correctAnswers}</span>
-            </p>
-            <p className='flex flex-row items-center gap-1 text-xl'>
-              <SquareX />
-              <span>{wrongAnswers}</span>
-            </p>
-            <p className='flex flex-row items-center gap-1 text-xl'>
-              <Flame />
-              <span>{currentStreak}</span>
-            </p>
+          {/* Stats display - matching ReturnFromGame */}
+          <div className='flex w-1/2 flex-row items-center justify-end gap-1.5 py-2 text-[var(--secondary-color)] sm:gap-2 md:gap-3'>
+            <StatItem icon={SquareCheck} value={correctAnswers} />
+            <StatItem icon={SquareX} value={wrongAnswers} />
+            <StatItem icon={Flame} value={currentStreak} />
           </div>
         </div>
 
@@ -276,7 +270,7 @@ export default function ActiveGame<T>({
         {canRegenerate && lives < maxLives && (
           <div
             className={clsx(
-              'flex items-center gap-2 rounded-lg p-2',
+              'mt-2 flex items-center gap-2 rounded-lg p-2',
               cardBorderStyles
             )}
           >
@@ -296,23 +290,34 @@ export default function ActiveGame<T>({
         )}
       </div>
 
-      {/* Feedback - matching Classic's GameIntel style */}
-      {feedback && (
-        <p className='flex items-center justify-center gap-1.5 text-xl text-[var(--secondary-color)]'>
-          {feedback}
-        </p>
-      )}
+      {/* Main game area - centered with proper spacing */}
+      <div className='flex w-full flex-1 flex-col items-center gap-4 sm:w-4/5 sm:gap-10'>
+        {/* Feedback - matching GameIntel style */}
+        <div
+          className={clsx(
+            'flex flex-col',
+            cardBorderStyles,
+            'text-[var(--secondary-color)]'
+          )}
+        >
+          {feedback && (
+            <p className='flex w-full items-center justify-center gap-1.5 border-[var(--border-color)] px-4 py-3 text-xl'>
+              {feedback}
+            </p>
+          )}
+        </div>
 
-      {/* Question Display - matching Classic's character display */}
-      <div className='flex flex-row items-center gap-1'>
-        <p className='text-8xl font-medium sm:text-9xl'>
-          {currentQuestion && renderQuestion(currentQuestion, isReverseActive)}
-        </p>
-      </div>
+        {/* Question Display - matching Classic game layout */}
+        <div className='flex flex-row items-center justify-center gap-1'>
+          <p className='text-8xl font-medium sm:text-9xl'>
+            {currentQuestion &&
+              renderQuestion(currentQuestion, isReverseActive)}
+          </p>
+        </div>
 
-      {/* Answer Area - matching Classic's button styles */}
-      <div className='flex w-full flex-col items-center gap-5 sm:w-4/5 sm:justify-evenly sm:gap-0'>
+        {/* Answer Area - layout based on dojoType and gameMode */}
         {gameMode === 'Type' ? (
+          /* Type mode - same for all dojos */
           <form
             onSubmit={onSubmit}
             className='flex w-full max-w-lg flex-col items-center gap-4'
@@ -349,9 +354,9 @@ export default function ActiveGame<T>({
               Submit
             </button>
           </form>
-        ) : (
-          /* Pick mode buttons - matching Classic's Pick.tsx exactly */
-          <div className='flex w-full flex-row flex-wrap justify-evenly gap-5 sm:gap-0'>
+        ) : dojoType === 'kana' ? (
+          /* Kana Pick mode - horizontal row layout matching Kana/Pick.tsx */
+          <div className='flex w-full flex-row gap-5 sm:justify-evenly sm:gap-0'>
             {shuffledOptions.map((option, i) => {
               const isWrong = wrongSelectedAnswers.includes(option);
               return (
@@ -382,6 +387,70 @@ export default function ActiveGame<T>({
                   <span
                     className={clsx(
                       'absolute top-1/2 right-4 hidden h-5 min-w-5 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--border-color)] px-1 text-xs leading-none lg:inline-flex',
+                      isWrong
+                        ? 'text-[var(--border-color)]'
+                        : 'text-[var(--secondary-color)]'
+                    )}
+                  >
+                    {i + 1}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          /* Kanji/Vocabulary Pick mode - vertical stacked layout matching their Pick.tsx */
+          <div
+            className={clsx(
+              'flex w-full flex-col items-center gap-6',
+              dojoType === 'kanji' &&
+                isReverseActive &&
+                'md:flex-row md:justify-evenly'
+            )}
+          >
+            {shuffledOptions.map((option, i) => {
+              const isWrong = wrongSelectedAnswers.includes(option);
+              return (
+                <button
+                  ref={elem => {
+                    buttonRefs.current[i] = elem;
+                  }}
+                  key={option + i}
+                  type='button'
+                  disabled={isWrong}
+                  className={clsx(
+                    'flex flex-row items-center gap-1.5 rounded-xl py-5',
+                    buttonBorderStyles,
+                    'active:scale-95 active:duration-200 md:active:scale-98',
+                    'border-b-4',
+                    // Width and alignment based on dojo and mode
+                    dojoType === 'kanji' && isReverseActive
+                      ? 'w-full justify-center text-5xl md:w-1/4 lg:w-1/5'
+                      : 'w-full justify-start pl-8 text-3xl md:w-1/2 md:text-4xl',
+                    // Colors
+                    isWrong &&
+                      'border-[var(--border-color)] text-[var(--border-color)] hover:border-[var(--border-color)] hover:bg-[var(--card-color)]',
+                    !isWrong &&
+                      'border-[var(--secondary-color)]/50 text-[var(--secondary-color)] hover:border-[var(--secondary-color)]'
+                  )}
+                  onClick={() => onOptionClick(option)}
+                  lang={isReverseActive ? 'ja' : undefined}
+                >
+                  <span
+                    className={clsx(
+                      dojoType === 'kanji' && isReverseActive
+                        ? ''
+                        : 'flex-1 text-left'
+                    )}
+                  >
+                    {renderOption
+                      ? renderOption(option, items, isReverseActive)
+                      : option}
+                  </span>
+                  <span
+                    className={clsx(
+                      'hidden rounded-full bg-[var(--border-color)] px-1 text-xs lg:inline',
+                      dojoType === 'kanji' && isReverseActive ? '' : 'mr-4',
                       isWrong
                         ? 'text-[var(--border-color)]'
                         : 'text-[var(--secondary-color)]'
