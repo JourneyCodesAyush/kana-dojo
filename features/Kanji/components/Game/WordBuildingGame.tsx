@@ -14,6 +14,8 @@ import { useStopwatch } from 'react-timer-hook';
 import { useSmartReverseMode } from '@/shared/hooks/useSmartReverseMode';
 import { GameBottomBar } from '@/shared/components/Game/GameBottomBar';
 import FuriganaText from '@/shared/components/text/FuriganaText';
+import AnswerSummary from '@/shared/components/Game/AnswerSummary';
+import { CircleCheck } from 'lucide-react';
 
 const random = new Random();
 const adaptiveSelector = getGlobalAdaptiveSelector();
@@ -290,6 +292,12 @@ const KanjiWordBuildingGame = ({
   const [placedTiles, setPlacedTiles] = useState<string[]>([]);
   const [isChecking, setIsChecking] = useState(false);
   const [isCelebrating, setIsCelebrating] = useState(false);
+  const [displayAnswerSummary, setDisplayAnswerSummary] = useState(false);
+  const [currentKanjiObjForSummary, setCurrentKanjiObjForSummary] =
+    useState<IKanjiObj | null>(null);
+  const [feedback, setFeedback] = useState<React.ReactElement>(
+    <>{'feedback ~'}</>
+  );
 
   const resetGame = useCallback(() => {
     const newQuestion = generateQuestion();
@@ -298,6 +306,7 @@ const KanjiWordBuildingGame = ({
     setIsChecking(false);
     setIsCelebrating(false);
     setBottomBarState('check');
+    setDisplayAnswerSummary(false);
     // Start timing for the new question
     speedStopwatch.reset();
     speedStopwatch.start();
@@ -365,6 +374,19 @@ const KanjiWordBuildingGame = ({
       setScore(score + 1);
       setBottomBarState('correct');
       setIsCelebrating(true);
+      setDisplayAnswerSummary(true);
+      // Store the current kanji object for summary display
+      setCurrentKanjiObjForSummary(selectedKanjiObj || null);
+      // Set feedback for the summary
+      const displayText = isReverse
+        ? selectedKanjiObj?.meanings[0]
+        : questionData.kanjiChar;
+      setFeedback(
+        <>
+          <span className='text-[var(--secondary-color)]'>{`${displayText} = ${questionData.correctAnswer} `}</span>
+          <CircleCheck className='inline text-[var(--main-color)]' />
+        </>
+      );
 
       // Advance smart reverse mode if not externally controlled
       if (externalIsReverse === undefined) {
@@ -421,6 +443,7 @@ const KanjiWordBuildingGame = ({
   // Handle Continue button (only for correct answers)
   const handleContinue = useCallback(() => {
     playClick();
+    setDisplayAnswerSummary(false);
     externalOnCorrect?.([questionData.kanjiChar]);
     resetGame();
   }, [playClick, externalOnCorrect, questionData.kanjiChar, resetGame]);
@@ -478,6 +501,9 @@ const KanjiWordBuildingGame = ({
   // Get the kanji object for display
   const currentKanjiObj = kanjiObjMap.get(questionData.kanjiChar);
 
+  // Get the selected kanji object for correct answer handling
+  const selectedKanjiObj = kanjiObjMap.get(questionData.kanjiChar);
+
   return (
     <div
       className={clsx(
@@ -485,122 +511,137 @@ const KanjiWordBuildingGame = ({
         isHidden && 'hidden'
       )}
     >
-      {/* Question Display - shows kanji in normal mode, meaning in reverse mode */}
-      <div className='flex flex-row items-center gap-1'>
-        <motion.div
-          className='flex flex-row items-center gap-2'
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          key={questionData.kanjiChar}
-        >
-          <span
-            className={clsx(
-              isReverse ? 'text-5xl sm:text-6xl' : 'text-8xl sm:text-9xl'
-            )}
-            lang={!isReverse ? 'ja' : undefined}
-          >
-            {!isReverse ? (
-              <FuriganaText
-                text={questionData.kanjiChar}
-                reading={getKanjiReading(questionData.kanjiChar)}
-              />
-            ) : (
-              currentKanjiObj?.meanings[0]
-            )}
-          </span>
-        </motion.div>
-      </div>
+      {/* Answer Summary - displayed after correct answer */}
+      {displayAnswerSummary && currentKanjiObjForSummary && (
+        <AnswerSummary
+          payload={currentKanjiObjForSummary}
+          setDisplayAnswerSummary={setDisplayAnswerSummary}
+          feedback={feedback}
+          isEmbedded={true}
+        />
+      )}
 
-      {/* Answer Row Area - shows placed tiles */}
-      <div className='flex w-full flex-col items-center'>
-        <div
-          className={clsx(
-            'flex w-full items-center border-b-2 border-[var(--border-color)] px-2 pb-2 md:w-3/4 lg:w-2/3 xl:w-1/2',
-            // Use taller min-height when in reverse mode (kanji tiles have larger font size)
-            isReverse ? 'min-h-[5.5rem]' : 'min-h-[5rem]'
-          )}
-        >
+      {/* Question Display - shows kanji in normal mode, meaning in reverse mode */}
+      {!displayAnswerSummary && (
+        <div className='flex flex-row items-center gap-1'>
           <motion.div
-            className='flex flex-row flex-wrap justify-start gap-3'
-            variants={celebrationContainerVariants}
-            initial='idle'
-            animate={isCelebrating ? 'celebrate' : 'idle'}
+            className='flex flex-row items-center gap-2'
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            key={questionData.kanjiChar}
           >
-            {/* Render placed tiles in the answer row */}
-            {placedTiles.map(char => (
-              <motion.div
-                key={`answer-tile-${char}`}
-                variants={celebrationBounceVariants}
-                style={{ originY: 1 }}
-              >
-                <ActiveTile
-                  id={`tile-${char}`}
-                  char={char}
-                  onClick={() => handleTileClick(char)}
-                  isDisabled={isChecking && bottomBarState !== 'wrong'}
-                  isKanji={isReverse}
+            <span
+              className={clsx(
+                isReverse ? 'text-5xl sm:text-6xl' : 'text-8xl sm:text-9xl'
+              )}
+              lang={!isReverse ? 'ja' : undefined}
+            >
+              {!isReverse ? (
+                <FuriganaText
+                  text={questionData.kanjiChar}
+                  reading={getKanjiReading(questionData.kanjiChar)}
                 />
-              </motion.div>
-            ))}
+              ) : (
+                currentKanjiObj?.meanings[0]
+              )}
+            </span>
           </motion.div>
         </div>
-      </div>
+      )}
 
-      {/* Available Tiles - 2 rows */}
-      {(() => {
-        const tilesPerRow = 2;
-        const topRowTiles = questionData.allTiles.slice(0, tilesPerRow);
-        const bottomRowTiles = questionData.allTiles.slice(tilesPerRow);
-
-        const renderTile = (char: string) => {
-          const isPlaced = placedTiles.includes(char);
-          const isKanjiTile = isReverse;
-
-          return (
+      {/* Answer Row Area - shows placed tiles */}
+      {!displayAnswerSummary && (
+        <div className='flex w-full flex-col items-center'>
+          <div
+            className={clsx(
+              'flex w-full items-center border-b-2 border-[var(--border-color)] px-2 pb-2 md:w-3/4 lg:w-2/3 xl:w-1/2',
+              // Use taller min-height when in reverse mode (kanji tiles have larger font size)
+              isReverse ? 'min-h-[5.5rem]' : 'min-h-[5rem]'
+            )}
+          >
             <motion.div
-              key={`tile-slot-${char}`}
-              className='relative'
-              variants={tileEntryVariants}
-              style={{ perspective: 1000 }}
+              className='flex flex-row flex-wrap justify-start gap-3'
+              variants={celebrationContainerVariants}
+              initial='idle'
+              animate={isCelebrating ? 'celebrate' : 'idle'}
             >
-              {/* Blank tile underneath */}
-              <BlankTile char={char} isKanji={isKanjiTile} />
-
-              {/* Active tile on top when NOT placed */}
-              {!isPlaced && (
-                <div className='absolute inset-0 z-10'>
+              {/* Render placed tiles in the answer row */}
+              {placedTiles.map(char => (
+                <motion.div
+                  key={`answer-tile-${char}`}
+                  variants={celebrationBounceVariants}
+                  style={{ originY: 1 }}
+                >
                   <ActiveTile
                     id={`tile-${char}`}
                     char={char}
                     onClick={() => handleTileClick(char)}
                     isDisabled={isChecking && bottomBarState !== 'wrong'}
-                    isKanji={isKanjiTile}
+                    isKanji={isReverse}
                   />
-                </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      )}
+
+      {/* Available Tiles - 2 rows */}
+      {!displayAnswerSummary &&
+        (() => {
+          const tilesPerRow = 2;
+          const topRowTiles = questionData.allTiles.slice(0, tilesPerRow);
+          const bottomRowTiles = questionData.allTiles.slice(tilesPerRow);
+
+          const renderTile = (char: string) => {
+            const isPlaced = placedTiles.includes(char);
+            const isKanjiTile = isReverse;
+
+            return (
+              <motion.div
+                key={`tile-slot-${char}`}
+                className='relative'
+                variants={tileEntryVariants}
+                style={{ perspective: 1000 }}
+              >
+                {/* Blank tile underneath */}
+                <BlankTile char={char} isKanji={isKanjiTile} />
+
+                {/* Active tile on top when NOT placed */}
+                {!isPlaced && (
+                  <div className='absolute inset-0 z-10'>
+                    <ActiveTile
+                      id={`tile-${char}`}
+                      char={char}
+                      onClick={() => handleTileClick(char)}
+                      isDisabled={isChecking && bottomBarState !== 'wrong'}
+                      isKanji={isKanjiTile}
+                    />
+                  </div>
+                )}
+              </motion.div>
+            );
+          };
+
+          return (
+            <motion.div
+              key={questionData.kanjiChar}
+              className='flex flex-col items-center gap-3 sm:gap-4'
+              variants={tileContainerVariants}
+              initial='hidden'
+              animate='visible'
+            >
+              <motion.div className='flex flex-row justify-center gap-3 sm:gap-4'>
+                {topRowTiles.map(char => renderTile(char))}
+              </motion.div>
+              {bottomRowTiles.length > 0 && (
+                <motion.div className='flex flex-row justify-center gap-3 sm:gap-4'>
+                  {bottomRowTiles.map(char => renderTile(char))}
+                </motion.div>
               )}
             </motion.div>
           );
-        };
-
-        return (
-          <motion.div
-            key={questionData.kanjiChar}
-            className='flex flex-col items-center gap-3 sm:gap-4'
-            variants={tileContainerVariants}
-            initial='hidden'
-            animate='visible'
-          >
-            <motion.div className='flex flex-row justify-center gap-3 sm:gap-4'>
-              {topRowTiles.map(char => renderTile(char))}
-            </motion.div>
-            {bottomRowTiles.length > 0 && (
-              <motion.div className='flex flex-row justify-center gap-3 sm:gap-4'>
-                {bottomRowTiles.map(char => renderTile(char))}
-              </motion.div>
-            )}
-          </motion.div>
-        );
-      })()}
+        })()}
 
       <Stars />
 
