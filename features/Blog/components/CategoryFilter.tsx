@@ -18,6 +18,7 @@ const categoryLabels: Record<Category, string> = {
   comparison: 'Comparison',
   tutorial: 'Tutorial',
   resources: 'Resources',
+  'study-tips': 'Study Tips',
   jlpt: 'JLPT'
 };
 
@@ -42,6 +43,8 @@ const categoryColors: Record<Category, string> = {
     'bg-indigo-500/20 text-indigo-400 border-indigo-500/30 hover:bg-indigo-500/30',
   resources:
     'bg-teal-500/20 text-teal-400 border-teal-500/30 hover:bg-teal-500/30',
+  'study-tips':
+    'bg-lime-500/20 text-lime-400 border-lime-500/30 hover:bg-lime-500/30',
   jlpt: 'bg-red-500/20 text-red-400 border-red-500/30 hover:bg-red-500/30'
 };
 

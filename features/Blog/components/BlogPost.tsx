@@ -28,6 +28,7 @@ const categoryColors: Record<Category, string> = {
   comparison: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
   tutorial: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30',
   resources: 'bg-teal-500/20 text-teal-400 border-teal-500/30',
+  'study-tips': 'bg-lime-500/20 text-lime-400 border-lime-500/30',
   jlpt: 'bg-red-500/20 text-red-400 border-red-500/30'
 };
 
