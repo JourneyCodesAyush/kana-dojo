@@ -389,7 +389,7 @@ jobs:
         if: steps.create-issue.outputs.should_commit == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTOMATION_PR_TOKEN }}
           add-paths: |
             data/community/
           commit-message: 'chore(automation): mark item as issued'

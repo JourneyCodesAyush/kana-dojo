@@ -189,7 +189,7 @@ jobs:
         if: steps.stale-check.outputs.needs_commit == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTOMATION_PR_TOKEN }}
           add-paths: |
             data/community/
           commit-message: 'chore(automation): re-enable stale items in backlog'
