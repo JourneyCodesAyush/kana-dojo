@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
 
     const theme = themes[type as keyof typeof themes] || themes.default;
 
-    return new ImageResponse(
+    const response = new ImageResponse(
       <div
         style={{
           height: '100%',
@@ -188,6 +188,15 @@ export async function GET(request: NextRequest) {
         height: 630,
       },
     );
+
+    // Add aggressive caching for OG images (24 hours cache, 7 days stale-while-revalidate)
+    // Reduces Vercel function invocations and improves social sharing performance
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=86400, stale-while-revalidate=604800, immutable',
+    );
+
+    return response;
   } catch (error) {
     console.error('OG Image generation error:', error);
     return new Response('Failed to generate image', { status: 500 });

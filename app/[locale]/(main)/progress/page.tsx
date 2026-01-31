@@ -1,7 +1,9 @@
+import { Suspense } from 'react';
 import ProgressTabs from '@/features/Progress/components/ProgressTabs';
 import type { Metadata } from 'next';
 import { generatePageMetadata } from '@/core/i18n/metadata-helpers';
 import { routing } from '@/core/i18n/routing';
+import Loader from '@/shared/components/Skeletons/Loader';
 
 // Generate static pages for all locales at build time
 export function generateStaticParams() {
@@ -24,5 +26,9 @@ export async function generateMetadata({
 }
 
 export default function ProgressPage() {
-  return <ProgressTabs />;
+  return (
+    <Suspense fallback={<Loader />}>
+      <ProgressTabs />
+    </Suspense>
+  );
 }

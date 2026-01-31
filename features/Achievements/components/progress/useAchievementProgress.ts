@@ -1,10 +1,14 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import useAchievementStore, {
   ACHIEVEMENTS,
 } from '@/features/Achievements/store/useAchievementStore';
 import { useStatsStore } from '@/features/Progress';
 import { useClick } from '@/shared/hooks/useAudio';
+import { useShallow } from 'zustand/react/shallow';
 import { CategoryId } from './constants';
+
+// Create achievement lookup map once at module level for O(1) access
+const ACHIEVEMENT_MAP = new Map(ACHIEVEMENTS.map(a => [a.id, a]));
 
 /**
  * Custom hook for AchievementProgress component logic
@@ -14,19 +18,23 @@ export const useAchievementProgress = () => {
   const { playClick } = useClick();
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>('all');
 
-  const unlockedAchievements = useAchievementStore(
-    state => state.unlockedAchievements,
+  // Optimize Zustand selectors - combine multiple selectors into one using useShallow
+  const { unlockedAchievements, totalPoints, level } = useAchievementStore(
+    useShallow(state => ({
+      unlockedAchievements: state.unlockedAchievements,
+      totalPoints: state.totalPoints,
+      level: state.level,
+    })),
   );
-  const totalPoints = useAchievementStore(state => state.totalPoints);
-  const level = useAchievementStore(state => state.level);
   const stats = useStatsStore();
 
   /**
    * Calculate achievement progress percentage based on current stats
+   * Optimized with O(1) Map lookup instead of O(n) array find
    */
   const getAchievementProgress = useCallback(
     (achievementId: string) => {
-      const achievement = ACHIEVEMENTS.find(a => a.id === achievementId);
+      const achievement = ACHIEVEMENT_MAP.get(achievementId);
       if (!achievement) return 0;
 
       let current = 0;
@@ -59,13 +67,17 @@ export const useAchievementProgress = () => {
 
   /**
    * Filter achievements by selected category
+   * Memoized to prevent recalculation on every render
    */
-  const filteredAchievements =
-    selectedCategory === 'all'
-      ? ACHIEVEMENTS
-      : ACHIEVEMENTS.filter(
-          achievement => achievement.category === selectedCategory,
-        );
+  const filteredAchievements = useMemo(
+    () =>
+      selectedCategory === 'all'
+        ? ACHIEVEMENTS
+        : ACHIEVEMENTS.filter(
+            achievement => achievement.category === selectedCategory,
+          ),
+    [selectedCategory],
+  );
 
   const unlockedCount = Object.keys(unlockedAchievements).length;
   const totalCount = ACHIEVEMENTS.length;

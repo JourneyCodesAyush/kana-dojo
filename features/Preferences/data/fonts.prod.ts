@@ -38,7 +38,6 @@
 } from 'next/font/google';
 
 const notoSansJP = Noto_Sans_JP({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: true,
@@ -46,7 +45,6 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 const zenMaruGothic = Zen_Maru_Gothic({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: true,
@@ -54,7 +52,6 @@ const zenMaruGothic = Zen_Maru_Gothic({
 });
 
 const rampartOne = Rampart_One({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -62,7 +59,6 @@ const rampartOne = Rampart_One({
 });
 
 const zenKurenaido = Zen_Kurenaido({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -70,7 +66,6 @@ const zenKurenaido = Zen_Kurenaido({
 });
 
 const kleeOne = Klee_One({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -78,7 +73,6 @@ const kleeOne = Klee_One({
 });
 
 const dotGothic16 = DotGothic16({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -86,7 +80,6 @@ const dotGothic16 = DotGothic16({
 });
 
 const kiwiMaru = Kiwi_Maru({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -94,7 +87,6 @@ const kiwiMaru = Kiwi_Maru({
 });
 
 const pottaOne = Potta_One({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -102,7 +94,6 @@ const pottaOne = Potta_One({
 });
 
 const hachiMaruPop = Hachi_Maru_Pop({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -110,7 +101,6 @@ const hachiMaruPop = Hachi_Maru_Pop({
 });
 
 const yujiMai = Yuji_Mai({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -118,7 +108,6 @@ const yujiMai = Yuji_Mai({
 });
 
 const rocknRollOne = RocknRoll_One({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -126,7 +115,6 @@ const rocknRollOne = RocknRoll_One({
 });
 
 const reggaeOne = Reggae_One({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -134,7 +122,6 @@ const reggaeOne = Reggae_One({
 });
 
 const stick = Stick({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -142,7 +129,6 @@ const stick = Stick({
 });
 
 const mPlusRounded1c = M_PLUS_Rounded_1c({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -150,7 +136,6 @@ const mPlusRounded1c = M_PLUS_Rounded_1c({
 });
 
 const mPlus1 = M_PLUS_1({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -158,28 +143,24 @@ const mPlus1 = M_PLUS_1({
 });
 
 const yuseiMagic = Yusei_Magic({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
   fallback: ['system-ui', 'sans-serif'],
 });
 const delaGothicOne = Dela_Gothic_One({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
   fallback: ['system-ui', 'sans-serif'],
 });
 const newTegomin = New_Tegomin({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
   fallback: ['system-ui', 'sans-serif'],
 });
 const kosugiMaru = Kosugi_Maru({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -187,7 +168,6 @@ const kosugiMaru = Kosugi_Maru({
 });
 
 const hinaMincho = Hina_Mincho({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -195,7 +175,6 @@ const hinaMincho = Hina_Mincho({
 });
 
 const shipporiMincho = Shippori_Mincho({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -203,7 +182,6 @@ const shipporiMincho = Shippori_Mincho({
 });
 
 const kaiseiDecol = Kaisei_Decol({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -211,7 +189,6 @@ const kaiseiDecol = Kaisei_Decol({
 });
 
 const mochiyPopOne = Mochiy_Pop_One({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -219,7 +196,6 @@ const mochiyPopOne = Mochiy_Pop_One({
 });
 
 const yujiBoku = Yuji_Boku({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -227,7 +203,6 @@ const yujiBoku = Yuji_Boku({
 });
 
 const kaiseiHarunoUmi = Kaisei_HarunoUmi({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -235,7 +210,6 @@ const kaiseiHarunoUmi = Kaisei_HarunoUmi({
 });
 
 const sawarabiGothic = Sawarabi_Gothic({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -243,7 +217,6 @@ const sawarabiGothic = Sawarabi_Gothic({
 });
 
 const zenOldMincho = Zen_Old_Mincho({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -251,7 +224,6 @@ const zenOldMincho = Zen_Old_Mincho({
 });
 
 const sawarabiMincho = Sawarabi_Mincho({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -259,7 +231,6 @@ const sawarabiMincho = Sawarabi_Mincho({
 });
 
 const zenAntique = Zen_Antique({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -267,7 +238,6 @@ const zenAntique = Zen_Antique({
 });
 
 const kaiseiTokumin = Kaisei_Tokumin({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -275,7 +245,6 @@ const kaiseiTokumin = Kaisei_Tokumin({
 });
 
 const yujiSyuku = Yuji_Syuku({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -285,7 +254,6 @@ const yujiSyuku = Yuji_Syuku({
 // WDXL Lubrifont JP N removed - causes font override error in Next.js 15
 
 const murecho = Murecho({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -293,7 +261,6 @@ const murecho = Murecho({
 });
 
 const kaiseiOpti = Kaisei_Opti({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -301,7 +268,6 @@ const kaiseiOpti = Kaisei_Opti({
 });
 
 const bIZUDMincho = BIZ_UDMincho({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,
@@ -309,7 +275,6 @@ const bIZUDMincho = BIZ_UDMincho({
 });
 
 const shipporiAntique = Shippori_Antique({
-  subsets: ['latin'],
   weight: ['400'],
   display: 'swap',
   preload: false,

@@ -10,6 +10,8 @@ const TRIVIA_FILES = {
   legacy: 'japan-trivia.json',
 } as const;
 
+const MAX_LIMIT = 100; // Maximum number of items per request to prevent abuse
+
 type Difficulty = 'easy' | 'medium' | 'hard' | 'all';
 
 type TriviaQuestion = {
@@ -69,7 +71,12 @@ export async function GET(request: NextRequest) {
     : 'all';
 
   const offset = parseNumber(searchParams.get('offset'), 0);
-  const limit = parseNumber(searchParams.get('limit'), 0);
+  let limit = parseNumber(searchParams.get('limit'), 0);
+
+  // Enforce maximum limit to prevent abuse
+  if (limit > MAX_LIMIT) {
+    limit = MAX_LIMIT;
+  }
 
   const trivia = await getTriviaByDifficulty(difficulty);
   const sliced =

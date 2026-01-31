@@ -228,24 +228,32 @@ function MonthGrid({ visits }: { visits: string[]; days: string[] }) {
 
         {/* Grid of weeks */}
         <div className='flex gap-0.5'>
-          {weeks.map((week, weekIndex) => (
-            <div key={weekIndex} className='flex flex-col gap-0.5'>
-              {week.map((day, dayIndex) => (
-                <div key={dayIndex}>
-                  {day ? (
-                    <DayCell
-                      date={day}
-                      isVisited={hasVisit(visits, day)}
-                      isFuture={isFutureDate(day)}
-                      size='md'
-                    />
-                  ) : (
-                    <div className='h-5 w-5' />
-                  )}
-                </div>
-              ))}
-            </div>
-          ))}
+          {weeks.map((week, weekIndex) => {
+            // Use first non-null day in week as key, fallback to week index
+            const weekKey = week.find(d => d !== null) || `week-${weekIndex}`;
+            return (
+              <div key={weekKey} className='flex flex-col gap-0.5'>
+                {week.map((day, dayIndex) => {
+                  // Use day as key if available, otherwise use week+day index combination
+                  const dayKey = day || `${weekKey}-empty-${dayIndex}`;
+                  return (
+                    <div key={dayKey}>
+                      {day ? (
+                        <DayCell
+                          date={day}
+                          isVisited={hasVisit(visits, day)}
+                          isFuture={isFutureDate(day)}
+                          size='md'
+                        />
+                      ) : (
+                        <div className='h-5 w-5' />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -359,7 +367,7 @@ function YearGrid({ visits }: { visits: string[]; days: string[] }) {
             <div className='flex h-4 items-end gap-0.5'>
               {monthLabels.map((label, i) => (
                 <div
-                  key={i}
+                  key={`month-${label}-${i}`}
                   className='w-4 text-xs whitespace-nowrap text-[var(--secondary-color)]'
                 >
                   {label}
@@ -369,12 +377,14 @@ function YearGrid({ visits }: { visits: string[]; days: string[] }) {
 
             {/* Grid rows - one row per day of week */}
             <div className='flex flex-col gap-0.5'>
-              {DAY_LABELS.map((_, dayIndex) => (
-                <div key={dayIndex} className='flex gap-0.5'>
+              {DAY_LABELS.map((label, dayIndex) => (
+                <div key={`day-${label}-${dayIndex}`} className='flex gap-0.5'>
                   {allWeeks.map((week, weekIndex) => {
                     const day = week[dayIndex];
+                    // Use day as key if available, otherwise use week+day combination
+                    const cellKey = day || `week-${weekIndex}-day-${dayIndex}`;
                     return (
-                      <div key={weekIndex}>
+                      <div key={cellKey}>
                         {day ? (
                           <DayCell
                             date={day}

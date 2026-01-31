@@ -12,8 +12,9 @@ const translationCache = new Map<
 >();
 const CACHE_TTL = 1000 * 60 * 60; // 1 hour cache
 const MAX_CACHE_SIZE = 500;
-const CLEANUP_INTERVAL = 1000 * 60 * 5; // Cleanup every 5 minutes
-let lastCleanupTime = 0;
+const CACHE_CLEANUP_THRESHOLD = 400; // Start cleanup when cache reaches this size
+let cacheHits = 0;
+let cacheMisses = 0;
 
 function getCacheKey(text: string, source: string, target: string): string {
   return `${source}:${target}:${text}`;
@@ -21,27 +22,41 @@ function getCacheKey(text: string, source: string, target: string): string {
 
 /**
  * Clean up expired cache entries
- * Runs periodically and when cache exceeds max size
+ * Runs when cache size exceeds threshold to maintain performance
+ * Uses both TTL expiration and LRU eviction for memory efficiency
  */
 function cleanupCache() {
-  const now = Date.now();
+  // Only cleanup if cache is getting large (avoid overhead on every request)
+  if (translationCache.size < CACHE_CLEANUP_THRESHOLD) {
+    return;
+  }
 
-  // Run TTL cleanup periodically (not on every request to avoid overhead)
-  if (now - lastCleanupTime > CLEANUP_INTERVAL) {
-    lastCleanupTime = now;
-    for (const [key, value] of translationCache) {
-      if (now - value.timestamp > CACHE_TTL) {
-        translationCache.delete(key);
-      }
+  const now = Date.now();
+  let expiredCount = 0;
+
+  // First pass: Remove expired entries
+  for (const [key, value] of translationCache) {
+    if (now - value.timestamp > CACHE_TTL) {
+      translationCache.delete(key);
+      expiredCount++;
     }
   }
 
-  // If still too large, remove oldest entries (LRU-style eviction)
+  // Second pass: If still too large, use LRU eviction
   if (translationCache.size > MAX_CACHE_SIZE) {
     const entries = Array.from(translationCache.entries());
     entries.sort((a, b) => a[1].timestamp - b[1].timestamp);
-    const toRemove = entries.slice(0, entries.length - MAX_CACHE_SIZE / 2);
-    toRemove.forEach(([key]) => translationCache.delete(key));
+    const toRemove = Math.ceil((translationCache.size - MAX_CACHE_SIZE) * 1.5); // Remove 50% more to reduce frequent cleanups
+    for (let i = 0; i < toRemove && i < entries.length; i++) {
+      translationCache.delete(entries[i][0]);
+    }
+  }
+
+  // Log cache statistics in production for monitoring
+  if (process.env.NODE_ENV === 'production' && expiredCount > 0) {
+    console.warn(
+      `Translation cache cleanup: removed ${expiredCount} expired entries, current size: ${translationCache.size}/${MAX_CACHE_SIZE}`,
+    );
   }
 }
 
@@ -237,6 +252,7 @@ export async function POST(request: NextRequest) {
     const cacheKey = getCacheKey(text.trim(), sourceLanguage, targetLanguage);
     const cached = translationCache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+      cacheHits++;
       const rateLimitHeaders = createRateLimitHeaders(rateLimitResult);
       const response = NextResponse.json({
         translatedText: cached.translatedText,
@@ -251,6 +267,9 @@ export async function POST(request: NextRequest) {
       });
       return response;
     }
+
+    // Cache miss - will call Google API
+    cacheMisses++;
 
     // Get API key from environment
     const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
@@ -339,6 +358,20 @@ export async function POST(request: NextRequest) {
       romanization,
       timestamp: Date.now(),
     });
+
+    // Log cache stats periodically for monitoring (every 100 requests)
+    const totalRequests = cacheHits + cacheMisses;
+    if (
+      process.env.NODE_ENV === 'production' &&
+      totalRequests > 0 &&
+      totalRequests % 100 === 0
+    ) {
+      const hitRate = ((cacheHits / totalRequests) * 100).toFixed(1);
+      console.warn(
+        `Translation cache stats: ${hitRate}% hit rate (${cacheHits} hits, ${cacheMisses} misses), size: ${translationCache.size}/${MAX_CACHE_SIZE}`,
+      );
+    }
+
     cleanupCache();
 
     const rateLimitHeaders = createRateLimitHeaders(rateLimitResult);

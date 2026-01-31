@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Trophy } from 'lucide-react';
+import { memo } from 'react';
 import { type Achievement } from '@/features/Achievements/store/useAchievementStore';
 import { AchievementCard } from './AchievementCard';
 
@@ -15,8 +16,9 @@ export interface AchievementGridProps {
 /**
  * Grid display of achievement cards
  * Handles the layout and animation of achievement cards
+ * Memoized to prevent unnecessary re-renders when parent updates
  */
-export const AchievementGrid = ({
+const AchievementGridComponent = ({
   achievements,
   unlockedAchievements,
   getAchievementProgress,
@@ -66,3 +68,6 @@ export const AchievementGrid = ({
     </motion.div>
   );
 };
+
+// Export memoized component to prevent unnecessary re-renders
+export const AchievementGrid = memo(AchievementGridComponent);
