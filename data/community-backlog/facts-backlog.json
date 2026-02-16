@@ -273,12 +273,12 @@
     "id": 46,
     "fact": "Japan's Shibuya Crossing sees up to 3,000 people cross at once during peak times - making it the busiest pedestrian intersection in the world.",
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "id": 47,
     "fact": "There's a Japanese concept called 'ikigai' (ç”Ÿãç”²æ–) - your reason for being - found at the intersection of what you love, need, and can be paid for.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
