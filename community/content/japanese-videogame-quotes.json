@@ -1,22 +1,5 @@
 [
   {
-    "id": 1,
-    "japanese": "????????",
-    "romaji": "Mada owaran yo!",
-    "english": "I'm not done yet!",
-    "game": "Street Fighter",
-    "character": "M. Bison"
-  },
-  {
-    "id": 2,
-    "japanese": "????",
-    "romaji": "Shoubu da!",
-    "english": "Let's settle this!",
-    "game": "Tekken",
-    "character": "Kazuya Mishima"
-  },
-  {
-    "id": 3,
     "japanese": "????",
     "romaji": "Ikuzo!",
     "english": "Let's go!",
@@ -24,219 +7,206 @@
     "character": "Cloud Strife"
   },
   {
-    "id": 4,
     "japanese": "??????",
     "romaji": "Koko made da.",
     "english": "This ends here.",
-    "game": "Metal Gear Solid",
-    "character": "Solid Snake"
-  },
-  {
-    "id": 5,
-    "japanese": "???????",
-    "romaji": "Ore wa makenai.",
-    "english": "I won't lose.",
-    "game": "Persona 5",
-    "character": "Joker"
-  },
-  {
-    "id": 6,
-    "japanese": "?????",
-    "romaji": "Kakugo shiro.",
-    "english": "Prepare yourself.",
-    "game": "Yakuza 0",
-    "character": "Kazuma Kiryu"
-  },
-  {
-    "id": 7,
-    "japanese": "????????",
-    "romaji": "Mada owaran yo!",
-    "english": "I'm not done yet!",
-    "game": "Street Fighter",
-    "character": "M. Bison"
-  },
-  {
-    "id": 8,
-    "japanese": "????",
-    "romaji": "Shoubu da!",
-    "english": "Let's settle this!",
-    "game": "Tekken",
-    "character": "Kazuya Mishima"
-  },
-  {
-    "id": 9,
-    "japanese": "????",
-    "romaji": "Ikuzo!",
-    "english": "Let's go!",
     "game": "Final Fantasy VII",
     "character": "Cloud Strife"
   },
   {
-    "id": 10,
-    "japanese": "??????",
-    "romaji": "Koko made da.",
-    "english": "This ends here.",
-    "game": "Metal Gear Solid",
-    "character": "Solid Snake"
-  },
-  {
-    "id": 11,
-    "japanese": "???????",
-    "romaji": "Ore wa makenai.",
-    "english": "I won't lose.",
-    "game": "Persona 5",
-    "character": "Joker"
-  },
-  {
-    "id": 12,
-    "japanese": "?????",
-    "romaji": "Kakugo shiro.",
-    "english": "Prepare yourself.",
-    "game": "Yakuza 0",
-    "character": "Kazuma Kiryu"
-  },
-  {
-    "id": 13,
     "japanese": "????????",
-    "romaji": "Mada owaran yo!",
-    "english": "I'm not done yet!",
-    "game": "Street Fighter",
-    "character": "M. Bison"
-  },
-  {
-    "id": 14,
-    "japanese": "????",
-    "romaji": "Shoubu da!",
-    "english": "Let's settle this!",
-    "game": "Tekken",
-    "character": "Kazuya Mishima"
-  },
-  {
-    "id": 15,
-    "japanese": "????",
-    "romaji": "Ikuzo!",
-    "english": "Let's go!",
+    "romaji": "Mada owaranai.",
+    "english": "It's not over yet.",
     "game": "Final Fantasy VII",
     "character": "Cloud Strife"
   },
   {
-    "id": 16,
-    "japanese": "??????",
-    "romaji": "Koko made da.",
-    "english": "This ends here.",
-    "game": "Metal Gear Solid",
-    "character": "Solid Snake"
-  },
-  {
-    "id": 17,
-    "japanese": "???????",
-    "romaji": "Ore wa makenai.",
-    "english": "I won't lose.",
-    "game": "Persona 5",
-    "character": "Joker"
-  },
-  {
-    "id": 18,
-    "japanese": "?????",
-    "romaji": "Kakugo shiro.",
-    "english": "Prepare yourself.",
-    "game": "Yakuza 0",
-    "character": "Kazuma Kiryu"
-  },
-  {
-    "id": 19,
-    "japanese": "????????",
-    "romaji": "Mada owaran yo!",
-    "english": "I'm not done yet!",
-    "game": "Street Fighter",
-    "character": "M. Bison"
-  },
-  {
-    "id": 20,
-    "japanese": "????",
-    "romaji": "Shoubu da!",
-    "english": "Let's settle this!",
-    "game": "Tekken",
-    "character": "Kazuya Mishima"
-  },
-  {
-    "id": 21,
-    "japanese": "????",
-    "romaji": "Ikuzo!",
-    "english": "Let's go!",
+    "japanese": "????????????",
+    "romaji": "Makeru wake ni wa ikanai.",
+    "english": "I can't afford to lose.",
     "game": "Final Fantasy VII",
     "character": "Cloud Strife"
   },
   {
-    "id": 22,
-    "japanese": "??????",
-    "romaji": "Koko made da.",
-    "english": "This ends here.",
-    "game": "Metal Gear Solid",
-    "character": "Solid Snake"
-  },
-  {
-    "id": 23,
-    "japanese": "???????",
-    "romaji": "Ore wa makenai.",
-    "english": "I won't lose.",
-    "game": "Persona 5",
-    "character": "Joker"
-  },
-  {
-    "id": 24,
-    "japanese": "?????",
-    "romaji": "Kakugo shiro.",
-    "english": "Prepare yourself.",
-    "game": "Yakuza 0",
-    "character": "Kazuma Kiryu"
-  },
-  {
-    "id": 25,
-    "japanese": "????????",
-    "romaji": "Mada owaran yo!",
-    "english": "I'm not done yet!",
-    "game": "Street Fighter",
-    "character": "M. Bison"
-  },
-  {
-    "id": 26,
     "japanese": "????",
     "romaji": "Shoubu da!",
     "english": "Let's settle this!",
-    "game": "Tekken",
-    "character": "Kazuya Mishima"
-  },
-  {
-    "id": 27,
-    "japanese": "????",
-    "romaji": "Ikuzo!",
-    "english": "Let's go!",
     "game": "Final Fantasy VII",
     "character": "Cloud Strife"
   },
   {
-    "id": 28,
+    "japanese": "??????????",
+    "romaji": "Unmei o kaete miseru.",
+    "english": "I'll change fate.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "?????????",
+    "romaji": "Kore ga ore no kotae da.",
+    "english": "This is my answer.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "????????",
+    "romaji": "Shinjiru shika nai.",
+    "english": "All we can do is believe.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "???????",
+    "romaji": "Kakugo wa ii ka?",
+    "english": "Are you ready?",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "????????",
+    "romaji": "Zettai ni akiramenai.",
+    "english": "I will never give up.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "????????",
+    "romaji": "Saa, hajimeyou.",
+    "english": "Now, let's begin.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "??????????",
+    "romaji": "Michi wa jibun de kirihiraku.",
+    "english": "I make my own path.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "???????????",
+    "romaji": "Hikari wa mada kiete inai.",
+    "english": "The light has not gone out.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "????????",
+    "romaji": "Yami o koete iku.",
+    "english": "We go beyond the darkness.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "??????",
+    "romaji": "Nakama o mamoru.",
+    "english": "I protect my friends.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "??????",
+    "romaji": "Honki de koi.",
+    "english": "Come at me for real.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "???????",
+    "romaji": "Mou mayowanai.",
+    "english": "I won't hesitate anymore.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "?????????",
+    "romaji": "Koko kara ga honban da.",
+    "english": "The real battle starts now.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "???????",
+    "romaji": "Saigo made tatakau.",
+    "english": "I'll fight to the very end.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
+    "japanese": "??????????",
+    "romaji": "Mirai wa kono te de tsukamu.",
+    "english": "I will seize the future with my own hands.",
+    "game": "Final Fantasy VII",
+    "character": "Cloud Strife"
+  },
+  {
     "japanese": "??????",
     "romaji": "Koko made da.",
     "english": "This ends here.",
-    "game": "Metal Gear Solid",
-    "character": "Solid Snake"
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
   },
   {
-    "id": 29,
+    "japanese": "????????",
+    "romaji": "Mada owaranai.",
+    "english": "It's not over yet.",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
+  },
+  {
+    "japanese": "????????????",
+    "romaji": "Makeru wake ni wa ikanai.",
+    "english": "I can't afford to lose.",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
+  },
+  {
+    "japanese": "????",
+    "romaji": "Shoubu da!",
+    "english": "Let's settle this!",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
+  },
+  {
+    "japanese": "??????????",
+    "romaji": "Unmei o kaete miseru.",
+    "english": "I'll change fate.",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
+  },
+  {
+    "japanese": "?????????",
+    "romaji": "Kore ga ore no kotae da.",
+    "english": "This is my answer.",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
+  },
+  {
+    "japanese": "????????",
+    "romaji": "Shinjiru shika nai.",
+    "english": "All we can do is believe.",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
+  },
+  {
     "japanese": "???????",
-    "romaji": "Ore wa makenai.",
-    "english": "I won't lose.",
-    "game": "Persona 5",
-    "character": "Joker"
+    "romaji": "Kakugo wa ii ka?",
+    "english": "Are you ready?",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
   },
   {
-    "id": 30,
-    "japanese": "?????",
-    "romaji": "Kakugo shiro.",
-    "english": "Prepare yourself.",
-    "game": "Yakuza 0",
-    "character": "Kazuma Kiryu"
+    "japanese": "????????",
+    "romaji": "Zettai ni akiramenai.",
+    "english": "I will never give up.",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
+  },
+  {
+    "japanese": "????????",
+    "romaji": "Saa, hajimeyou.",
+    "english": "Now, let's begin.",
+    "game": "Final Fantasy VII",
+    "character": "Sephiroth"
   }
 ]
