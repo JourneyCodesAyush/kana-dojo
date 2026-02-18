@@ -432,9 +432,9 @@
   "secondaryColor": "oklch(68.0% 0.165 30.0 / 1)"
   },
   {
-  id: 'vending-glow',
-  backgroundColor: 'oklch(16.0% 0.025 280.0 / 1)',
-  mainColor: 'oklch(85.0% 0.125 220.0 / 1)',
-  secondaryColor: 'oklch(78.0% 0.165 45.0 / 1)'
+  "id": "vending-glow",
+  "backgroundColor": "oklch(16.0% 0.025 280.0 / 1)",
+  "mainColor": "oklch(85.0% 0.125 220.0 / 1)",
+  "secondaryColor": "oklch(78.0% 0.165 45.0 / 1)"
 }
 ]
