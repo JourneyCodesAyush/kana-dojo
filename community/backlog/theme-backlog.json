@@ -1873,7 +1873,9 @@
     "mainColor": "oklch(62.0% 0.110 75.0 / 1)",
     "secondaryColor": "oklch(70.0% 0.060 85.0 / 1)",
     "issued": false,
-    "completed": false
+    "completed": false,
+    "completedBy": "Godsdar",
+    "completedPR": 29507
   },
   {
     "id": "bento-sage",
