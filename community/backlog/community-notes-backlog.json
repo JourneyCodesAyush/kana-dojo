@@ -5,7 +5,9 @@
     "position": "bottom",
     "text": "- Community note: this file is used for lightweight contribution practice.",
     "issued": false,
-    "completed": false
+    "completed": false,
+    "completedBy": "bhaktisharma23",
+    "completedPR": 29645
   },
   {
     "id": 2,
