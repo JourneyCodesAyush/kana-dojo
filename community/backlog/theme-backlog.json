@@ -1489,7 +1489,9 @@
     "mainColor": "oklch(72.0% 0.155 35.0 / 1)",
     "secondaryColor": "oklch(58.0% 0.035 240.0 / 1)",
     "issued": false,
-    "completed": false
+    "completed": false,
+    "completedBy": "itsflaid",
+    "completedPR": 29696
   },
   {
     "id": "tangerine-fizz",
